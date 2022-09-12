@@ -1,0 +1,12 @@
+.root {
+    background-color: transparent;
+    box-shadow: "0px 0px 0px 0px";
+    background-image: linear-gradient(red, yellow);
+    /* background-image: url('https://doji.vn/wp-content/uploads/2021/04/cong-chinh.jpg'); */
+}
+
+.box {
+    background-image: linear-gradient(red, yellow);
+    justify-content: space-evenly;
+    align-items: center;
+}

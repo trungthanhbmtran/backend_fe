@@ -1,0 +1,42 @@
+{
+  "name": "qltt",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/css": "^11.9.0",
+    "@emotion/react": "^11.9.3",
+    "@emotion/server": "^11.4.0",
+    "@emotion/styled": "^11.9.3",
+    "@fontsource/montez": "^4.5.8",
+    "@mui/icons-material": "^5.8.4",
+    "@mui/material": "^5.8.4",
+    "@mui/styles": "^5.8.4",
+    "axios": "^0.26.0",
+    "clsx": "^1.1.1",
+    "framer-motion": "^6.5.1",
+    "material-table": "^2.0.3",
+    "next": "12.1.0",
+    "polished": "^4.2.2",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-html-table-to-excel": "^2.0.0",
+    "react-material-ui-carousel": "^3.4.2",
+    "react-redux": "^7.2.6",
+    "react-swipeable-views": "^0.14.0",
+    "react-toastify": "^8.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.4.1",
+    "sharp": "^0.30.7"
+  },
+  "devDependencies": {
+    "eslint": "8.10.0",
+    "eslint-config-next": "12.1.0"
+  }
+}
