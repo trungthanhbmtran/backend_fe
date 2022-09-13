@@ -10,7 +10,7 @@ import Header from './Header';
 import AppBar from './AppBar';
 import DrawerAppBar from './Drawer';
 import { useTheme } from "@mui/material/styles";
-import { useMediaQuery } from "@mui/material";
+import { Container, useMediaQuery } from "@mui/material";
 
 export default function Layout({ children }) {
   const theme = useTheme();
@@ -18,8 +18,8 @@ export default function Layout({ children }) {
   // console.log(matches);
 
   return (
-    <Box >
+    <Container maxWidth="false">
      {children}
-    </Box>
+    </Container>
   );
 }
