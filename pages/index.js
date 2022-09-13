@@ -46,16 +46,10 @@ export default function Index() {
   //   ]
   // })
   const [GetCotent, SetGetContent] = useState(undefined)
-  const [Align, setAlign] = useState()
-  const [Bold, setBold] = useState(false)
-  const [italic, setItalic] = useState(false)
-  const [textInput, setTextInput] = useState([])
-  const [Variant, setVariant] = useState(18)
   const [files, setFiles] = useState([])
 
 
 
-  const [value, setValue] = useState('')
 
   const AddBoxContent = () => {
     // if(!GetCotent){
@@ -80,18 +74,15 @@ export default function Index() {
 
   }
 
-  const OnchangeAlig = (value) => {
-    setAlign(value)
-  }
-
-  const onChangeBold = () => setBold(!Bold)
-  const onChangeItalic = () => setItalic(!italic)
-  const onChangeUpVariant = () => setVariant(Variant + 3)
-  const onChangeDownVariant = () => setVariant(Variant - 3)
-
 
 
   const OnChageTittle = (e) => SetGetContent({ title: e.target.value })
+
+  const OnDeleteContent = (index) => {
+    // console.log('IninitValue',index)
+    GetCotent.content.splice(index, 1)
+    SetGetContent({...GetCotent})
+  }
 
   const OnChageTextArea = (e, IninitValue) => {
     // console.log('e.target.value',IninitValue)
@@ -117,12 +108,13 @@ export default function Index() {
     SetGetContent({...GetCotent})
   }
 
-
+  const handleSubmit = () => alert('1112233')
 
 
   console.log('textInput', GetCotent)
   return (
     <Layout>
+      <form onSubmit={handleSubmit}>
       <Grid container spacing={2} >
         <Grid item xs={12}>
           <TextField
@@ -130,9 +122,6 @@ export default function Index() {
             multiline
             // onChange={e => e.target.value}
             onChange={OnChageTittle}
-            inputProps={{
-              style: { fontSize: Variant, textAlign: Align, fontWeight: Bold ? 'bold' : 'normal', fontStyle: italic ? 'italic' : 'normal' }
-            }}
             InputLabelProps={{
               shrink: true
             }}
@@ -181,7 +170,7 @@ export default function Index() {
 
                     </Grid>
                     <Grid item xs={1}>
-                      <Button variant='contained' >Xoá</Button>
+                      <Button variant='contained' onClick={(e) =>OnDeleteContent(GetCotent.content[index],index)} >Xoá</Button>
                     </Grid>
                   </>
 
@@ -196,11 +185,16 @@ export default function Index() {
         {/* </Grid> */}
         <Grid item xs={2}>
           <Paper>
-            <Button onClick={AddBoxContent} >Thêm dòng nội dung</Button>
+            <Button onClick={AddBoxContent} variant='contained' >Thêm dòng nội dung</Button>
             <ImageUpload />
           </Paper>
         </Grid>
+        <Grid item xs={12}>
+            <Button onClick={handleSubmit} variant='contained' >Gửi Form</Button>
+        </Grid>
       </Grid>
+      </form>
+      
     </Layout>
   )
 }
