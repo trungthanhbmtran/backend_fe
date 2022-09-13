@@ -8,6 +8,8 @@ import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
 import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import FormatColorTextIcon from '@mui/icons-material/FormatColorText';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -108,6 +110,16 @@ export default function Index() {
     SetGetContent({ ...GetCotent })
   }
 
+  const handleUpVariant = (IninitValue) =>{
+    IninitValue.Variant = IninitValue.Variant + 2
+    SetGetContent({ ...GetCotent })
+  }
+
+  const handleDownVariant = (IninitValue) =>{
+    IninitValue.Variant = (IninitValue.Variant - 2)
+    SetGetContent({ ...GetCotent })
+  }
+
   const handleSubmit = () => alert('1112233')
   
 
@@ -133,7 +145,7 @@ export default function Index() {
               // console.log('e', e)
               return (
                 <>
-                  <Grid item xs={6} key={index}>
+                  <Grid item xs={12} key={index}>
                     <TextField
                       fullWidth
                       multiline
@@ -146,29 +158,36 @@ export default function Index() {
                       }}
                     />
                   </Grid>
-                  <Grid item container xs={4} spacing={2}>
-                    <Grid item xs={2}>
+                  <Grid item container xs={12} spacing={2}>
+                    <Grid item xs={1}>
                       <Button variant='contained' onClick={(e) => UpdateParagraph(GetCotent.content[index], 'left')} ><FormatAlignLeftIcon /></Button>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={1}>
                       <Button variant='contained' onClick={(e) => UpdateParagraph(GetCotent.content[index], 'center')}><FormatAlignCenterIcon /></Button>
                     </Grid>
-                    {/* <Grid item xs={2}>
+                    <Grid item xs={1}>
                       <Button variant='contained' onClick={(e) =>UpdateParagraph(GetCotent.content[index],'left')}><FormatAlignJustifyIcon /></Button>
-                    </Grid> */}
-                    <Grid item xs={2}>
+                    </Grid>
+                    <Grid item xs={1}>
                       <Button variant='contained' onClick={(e) => UpdateParagraph(GetCotent.content[index], 'right')}><FormatAlignRightIcon /></Button>
-                      <Grid item xs={2}>
+                    </Grid>
+                    <Grid item xs={1}>
+                      <Button variant='contained' onClick={(e) => handleUpVariant(GetCotent.content[index])}><KeyboardArrowUpIcon /></Button>
+                    </Grid>
+                    <Grid item xs={1}>
+                      <Button variant='contained' onClick={(e) => handleDownVariant(GetCotent.content[index])}><KeyboardArrowDownIcon /></Button>
+                    </Grid>
+                    <Grid item xs={1}>
                         <Button variant='contained' onClick={(e) => UpdateBold(GetCotent.content[index])} ><FormatBoldIcon /></Button>
                       </Grid>
-                      <Grid item xs={2}>
+                      <Grid item xs={1}>
                         <Button variant='contained' onClick={(e) => UpdateItatic(GetCotent.content[index])} ><FormatItalicIcon /></Button>
                       </Grid>
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={1}>
+                      <Grid item xs={2}>
                     <Button variant='contained' onClick={(e) => OnDeleteContent(GetCotent.content[index], index)} >Xoá</Button>
                   </Grid>
+                  </Grid>
+                 
                 </>
 
               )
