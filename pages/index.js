@@ -90,7 +90,7 @@ export default function Index() {
     SetGetContent({ ...GetCotent })
   }
 
-  const OnChageTextArea = (e, IninitValue, index) => {
+  const OnChageTextArea = (e, IninitValue) => {
     // console.log('e.target.value',IninitValue)
     IninitValue.subcontent = e.target.value
     SetGetContent({ ...GetCotent })

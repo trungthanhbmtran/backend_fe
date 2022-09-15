@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react"
 
-export const ImageUpload = () => {
+ const ImageUpload = () => {
     const [selectedFile, setSelectedFile] = useState()
     const [preview, setPreview] = useState()
 
@@ -36,3 +36,5 @@ export const ImageUpload = () => {
         </div>
     )
 }
+
+export default ImageUpload
