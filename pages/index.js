@@ -93,7 +93,6 @@ export default function Index() {
   const OnChageTextArea = (e, IninitValue, index) => {
     // console.log('e.target.value',IninitValue)
     IninitValue.subcontent = e.target.value
-    setSelected(index)
     SetGetContent({ ...GetCotent })
     // console.log('GetCotent', GetCotent)
   }
@@ -125,15 +124,15 @@ export default function Index() {
     SetGetContent({ ...GetCotent })
   }
 
-  const CheckSelected = () => {
-    setSelected()
+  const CheckSelected = (index) => {
+    setSelected(index)
   }
 
   const handleSubmit = () => alert('1112233')
 
 
 
-  console.log('textInput', selected)
+  // console.log('textInput', selected)
   return (
     <Layout>
       <Grid container spacing={5} sx={{ mt: 1 }}>
@@ -159,7 +158,8 @@ export default function Index() {
                       <TextField
                         fullWidth
                         multiline
-                        onChange={(e) => OnChageTextArea(e, GetCotent.content[index], index)}
+                        onClick={() => CheckSelected(index)}
+                        onChange={(e) => OnChageTextArea(e, GetCotent.content[index])}
                         // onMouseOver={() => setSelected(index)}
                         inputProps={{
                           style: { fontSize: e.Variant, textAlign: e.paragraph, fontWeight: e.bold ? 'bold' : 'normal', fontStyle: e.itatic ? 'italic' : 'normal' }
