@@ -18,6 +18,7 @@ import { useFormControl } from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import Image from 'next/image';
 import { ImageUpload } from './ImageUpload';
+import { useEffect } from 'react';
 
 
 function MyFormHelperText() {
@@ -48,6 +49,7 @@ export default function Index() {
   //   ]
   // })
   const [GetCotent, SetGetContent] = useState(undefined)
+  const [selected, setSelected] = useState(undefined)
   const [files, setFiles] = useState([])
 
 
@@ -60,7 +62,9 @@ export default function Index() {
     if (GetCotent && GetCotent.content) {
       // GetCotent.content = {subcontent : null ,Variant:16, paragraph : 'left' ,bold : false , itatic : false },
       // console.log('GetCotent',GetCotent.content.push({subcontent : null ,Variant:16, paragraph : 'left' ,bold : false , itatic : false }))
+
       GetCotent.content.push({ subcontent: undefined, Variant: 16, paragraph: 'left', bold: false, itatic: false })
+
       // SetGetContent({...GetCotent.title,[...GetCotent.content,{subcontent : null ,Variant:16, paragraph : 'left' ,bold : false , itatic : false }]})
       SetGetContent({ ...GetCotent })
     } else {
@@ -86,15 +90,16 @@ export default function Index() {
     SetGetContent({ ...GetCotent })
   }
 
-  const OnChageTextArea = (e, IninitValue) => {
+  const OnChageTextArea = (e, IninitValue, index) => {
     // console.log('e.target.value',IninitValue)
     IninitValue.subcontent = e.target.value
+    setSelected(index)
     SetGetContent({ ...GetCotent })
     // console.log('GetCotent', GetCotent)
   }
 
   const UpdateParagraph = (IninitValue, value) => {
-    console.log('IninitValue', IninitValue, value)
+    // console.log('IninitValue', IninitValue, value)
     IninitValue.paragraph = value
     SetGetContent({ ...GetCotent })
 
@@ -110,23 +115,28 @@ export default function Index() {
     SetGetContent({ ...GetCotent })
   }
 
-  const handleUpVariant = (IninitValue) =>{
+  const handleUpVariant = (IninitValue) => {
     IninitValue.Variant = IninitValue.Variant + 2
     SetGetContent({ ...GetCotent })
   }
 
-  const handleDownVariant = (IninitValue) =>{
+  const handleDownVariant = (IninitValue) => {
     IninitValue.Variant = (IninitValue.Variant - 2)
     SetGetContent({ ...GetCotent })
   }
 
-  const handleSubmit = () => alert('1112233')
-  
+  const CheckSelected = () => {
+    setSelected()
+  }
 
-  console.log('textInput', GetCotent)
+  const handleSubmit = () => alert('1112233')
+
+
+
+  console.log('textInput', selected)
   return (
     <Layout>
-      <Grid container spacing={5} sx={{mt : 1}}>
+      <Grid container spacing={5} sx={{ mt: 1 }}>
         <Grid container item xs={10} spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -138,73 +148,83 @@ export default function Index() {
                 shrink: true
               }}
             />
-         </Grid>
-         <Grid container item xs={12} spacing={2}>
-          {
-            GetCotent?.title ? GetCotent.content?.map((e, index) => {
-              // console.log('e', e)
-              return (
-                <>
-                  <Grid item xs={12} key={index}>
-                    <TextField
-                      fullWidth
-                      multiline
-                      onChange={(e) => OnChageTextArea(e, GetCotent.content[index])}
-                      inputProps={{
-                        style: { fontSize: e.Variant, textAlign: e.paragraph, fontWeight: e.bold ? 'bold' : 'normal', fontStyle: e.itatic ? 'italic' : 'normal' }
-                      }}
-                      InputLabelProps={{
-                        shrink: true
-                      }}
-                    />
-                  </Grid>
-                  <Grid item container xs={12} spacing={2}>
-                    <Grid item xs={1}>
-                      <Button variant='contained' onClick={(e) => UpdateParagraph(GetCotent.content[index], 'left')} ><FormatAlignLeftIcon /></Button>
+          </Grid>
+          <Grid container item xs={12} spacing={2}>
+            {
+              GetCotent?.title ? GetCotent.content?.map((e, index) => {
+                // console.log('e', e)
+                return (
+                  <>
+                    <Grid item xs={12} key={index}>
+                      <TextField
+                        fullWidth
+                        multiline
+                        onChange={(e) => OnChageTextArea(e, GetCotent.content[index], index)}
+                        // onMouseOver={() => setSelected(index)}
+                        inputProps={{
+                          style: { fontSize: e.Variant, textAlign: e.paragraph, fontWeight: e.bold ? 'bold' : 'normal', fontStyle: e.itatic ? 'italic' : 'normal' }
+                        }}
+                        InputLabelProps={{
+                          shrink: true
+                        }}
+                      />
                     </Grid>
-                    <Grid item xs={1}>
-                      <Button variant='contained' onClick={(e) => UpdateParagraph(GetCotent.content[index], 'center')}><FormatAlignCenterIcon /></Button>
-                    </Grid>
-                    <Grid item xs={1}>
-                      <Button variant='contained' onClick={(e) =>UpdateParagraph(GetCotent.content[index],'left')}><FormatAlignJustifyIcon /></Button>
-                    </Grid>
-                    <Grid item xs={1}>
-                      <Button variant='contained' onClick={(e) => UpdateParagraph(GetCotent.content[index], 'right')}><FormatAlignRightIcon /></Button>
-                    </Grid>
-                    <Grid item xs={1}>
-                      <Button variant='contained' onClick={(e) => handleUpVariant(GetCotent.content[index])}><KeyboardArrowUpIcon /></Button>
-                    </Grid>
-                    <Grid item xs={1}>
-                      <Button variant='contained' onClick={(e) => handleDownVariant(GetCotent.content[index])}><KeyboardArrowDownIcon /></Button>
-                    </Grid>
-                    <Grid item xs={1}>
-                        <Button variant='contained' onClick={(e) => UpdateBold(GetCotent.content[index])} ><FormatBoldIcon /></Button>
-                      </Grid>
-                      <Grid item xs={1}>
-                        <Button variant='contained' onClick={(e) => UpdateItatic(GetCotent.content[index])} ><FormatItalicIcon /></Button>
-                      </Grid>
-                      <Grid item xs={2}>
-                    <Button variant='contained' onClick={(e) => OnDeleteContent(GetCotent.content[index], index)} >Xoá</Button>
-                  </Grid>
-                  </Grid>
-                 
-                </>
+                    {selected === index
+                      ? (
+                        <Grid item container xs={12} spacing={2}>
+                          <Grid item xs={1}>
+                            <Button variant='contained' onClick={(e) => UpdateParagraph(GetCotent.content[index], 'left')} ><FormatAlignLeftIcon /></Button>
+                          </Grid>
+                          <Grid item xs={1}>
+                            <Button variant='contained' onClick={(e) => UpdateParagraph(GetCotent.content[index], 'center')}><FormatAlignCenterIcon /></Button>
+                          </Grid>
+                          <Grid item xs={1}>
+                            <Button variant='contained' onClick={(e) => UpdateParagraph(GetCotent.content[index], 'left')}><FormatAlignJustifyIcon /></Button>
+                          </Grid>
+                          <Grid item xs={1}>
+                            <Button variant='contained' onClick={(e) => UpdateParagraph(GetCotent.content[index], 'right')}><FormatAlignRightIcon /></Button>
+                          </Grid>
+                          <Grid item xs={1}>
+                            <Button variant='contained' onClick={(e) => handleUpVariant(GetCotent.content[index])}><KeyboardArrowUpIcon /></Button>
+                          </Grid>
+                          <Grid item xs={1}>
+                            <Button variant='contained' onClick={(e) => handleDownVariant(GetCotent.content[index])}><KeyboardArrowDownIcon /></Button>
+                          </Grid>
+                          <Grid item xs={1}>
+                            <Button variant='contained' onClick={(e) => UpdateBold(GetCotent.content[index])} ><FormatBoldIcon /></Button>
+                          </Grid>
+                          <Grid item xs={1}>
+                            <Button variant='contained' onClick={(e) => UpdateItatic(GetCotent.content[index])} ><FormatItalicIcon /></Button>
+                          </Grid>
+                          <Grid item xs={2}>
+                            <Button variant='contained' onClick={(e) => OnDeleteContent(GetCotent.content[index], index)} >Xoá</Button>
+                          </Grid>
+                        </Grid>
+                      ) :
+                      (null)
+                    }
 
-              )
-            }) : null
-          }
-         </Grid>
-              <Grid item xs={12} sx={{textAlign :'center'}}>
-                  <Button onClick={handleSubmit} variant='contained' >Gửi Form</Button>
-              </Grid>
+
+
+
+
+                  </>
+
+                )
+              }) : null
+            }
+          </Grid>
+          <Grid item xs={12} sx={{ textAlign: 'center' }}>
+            <Button onClick={handleSubmit} variant='contained' >Gửi Form</Button>
+          </Grid>
         </Grid>
         <Grid container item xs={2} spacing={2}>
-            <Grid item xs={12}>
-              <Button onClick={AddBoxContent} variant='contained' >Thêm dòng nội dung</Button>
-            </Grid>
-            <Grid item xs={12}>
-              <ImageUpload />
-            </Grid>
+          <Grid item xs={12}>
+            <Button onClick={AddBoxContent} variant='contained' >Thêm dòng nội dung</Button>
+          </Grid>
+          <Grid item xs={12}>
+            <ImageUpload />
+          </Grid>
         </Grid>
       </Grid>
     </Layout>
