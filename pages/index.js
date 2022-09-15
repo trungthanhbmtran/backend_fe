@@ -17,7 +17,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { useFormControl } from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import Image from 'next/image';
-import { ImageUpload } from './ImageUpload';
+import  ImageUpload  from './ImageUpload';
 import { useEffect } from 'react';
 
 
@@ -37,7 +37,7 @@ function MyFormHelperText() {
 
 
 
-export default function Index() {
+const  Index = () => {
   //   const [GetCotent, SetGetContent] = useState({title : 'Bai viet thanh dang test' , 
   //   content : [
   //     {subcontent : 'this is subcontent' , paragraph : 'center',bold : false , itatic : false },
@@ -230,3 +230,5 @@ export default function Index() {
     </Layout>
   )
 }
+
+export default Index
