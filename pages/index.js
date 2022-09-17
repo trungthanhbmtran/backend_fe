@@ -141,6 +141,7 @@ const  Index = () => {
             <TextField
               fullWidth
               multiline
+              label="Tittle"
               // onChange={e => e.target.value}
               onChange={OnChageTittle}
               InputLabelProps={{
@@ -148,13 +149,13 @@ const  Index = () => {
               }}
             />
           </Grid>
-          <Grid container item xs={12} spacing={2}>
+          <Grid container item xs={12} spacing={2} sx={{ border : '1px solid ' , mt : 2 ,ml : 1  }} >
             {
               GetCotent?.title ? GetCotent.content?.map((e, index) => {
                 // console.log('e', e)
                 return (
                   <>
-                    <Grid item xs={12} key={index}>
+                    <Grid item xs={12} key={index} sx={{pr : 3, pb : 2}}>
                       <TextField
                         fullWidth
                         multiline
@@ -171,7 +172,7 @@ const  Index = () => {
                     </Grid>
                     {selected === index
                       ? (
-                        <Grid item container xs={12} spacing={2}>
+                        <Grid item container xs={12} spacing={2} sx={{pb : 2}} >
                           <Grid item xs={1}>
                             <Button variant='contained' onClick={(e) => UpdateParagraph(GetCotent.content[index], 'left')} ><FormatAlignLeftIcon /></Button>
                           </Grid>
@@ -203,11 +204,6 @@ const  Index = () => {
                       ) :
                       (null)
                     }
-
-
-
-
-
                   </>
 
                 )

@@ -28,7 +28,7 @@ import { useState,useEffect } from "react"
         setSelectedFile(e.target.files[0])
     }
 
-    // console.log(selectedFile)
+    console.log(selectedFile)
     return (
         <div>
             <input type='file'  onChange={onSelectFile} />
