@@ -50,8 +50,9 @@ const  Index = () => {
   // })
   const [GetCotent, SetGetContent] = useState(undefined)
   const [selected, setSelected] = useState(undefined)
-  const [files, setFiles] = useState([])
-
+  const [value,setValue] = useState(undefined)
+  const [selectedFile, setSelectedFile] = useState()
+  const [preview, setPreview] = useState()
 
 
 
@@ -131,8 +132,33 @@ const  Index = () => {
   const handleSubmit = () => alert('1112233')
 
 
+  // useEffect(() => {
+  //   if (!selectedFile) {
+  //       setPreview(undefined)
+  //       return
+  //   }
 
-  // console.log('textInput', selected)
+  //   const objectUrl = URL.createObjectURL(selectedFile)
+  //   setPreview(objectUrl)
+
+  //   // free memory when ever this component is unmounted
+  //   return () => URL.revokeObjectURL(objectUrl)
+  // }, [selectedFile])
+
+const onSelectFile = (e,IninitValue) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      IninitValue.subcontent = undefined
+        return
+    }
+    // I've kept this example simple by using the first image instead of multiple
+    // setSelectedFile(e.target.files[0])
+    console.log('e.target.files[0]',e.target.files[0])
+    IninitValue.subcontent = e.target.files[0]
+    SetGetContent({ ...GetCotent })
+}
+
+  console.log('textInput', GetCotent)
+
   return (
     <Layout>
       <Grid container spacing={5} sx={{ mt: 1 }}>
@@ -151,28 +177,35 @@ const  Index = () => {
           </Grid>
           <Grid container item xs={12} spacing={2} sx={{ border : '1px solid ' , mt : 2 ,ml : 1  }} >
             {
-              GetCotent?.title ? GetCotent.content?.map((e, index) => {
-                // console.log('e', e)
-                return (
-                  <>
-                    <Grid item xs={12} key={index} sx={{pr : 3, pb : 2}}>
-                      <TextField
-                        fullWidth
-                        multiline
-                        onClick={() => CheckSelected(index)}
-                        onChange={(e) => OnChageTextArea(e, GetCotent.content[index])}
-                        // onMouseOver={() => setSelected(index)}
-                        inputProps={{
-                          style: { fontSize: e.Variant, textAlign: e.paragraph, fontWeight: e.bold ? 'bold' : 'normal', fontStyle: e.itatic ? 'italic' : 'normal' }
-                        }}
-                        InputLabelProps={{
-                          shrink: true
-                        }}
-                      />
-                    </Grid>
-                    {selected === index
-                      ? (
-                        <Grid item container xs={12} spacing={2} sx={{pb : 2}} >
+              GetCotent && GetCotent.content?.map((e, index) => {
+                // console.log('e',e.subcontent.name)
+               return(
+                <Grid item xs={12} key={index} sx={{pr : 3, pb : 2}}>
+                     {
+                       selected === index ? (
+                        <Box  onClick={() => CheckSelected(index)} >
+                          {
+                            e.subcontent?.name ? (
+                              <h1>render hinh anh</h1>
+                              // <img src={preview} width="376" height="200" />
+                            ):(
+                              <TextField
+                              fullWidth
+                              multiline
+                              value={e.subcontent}
+                              onChange={(e) => OnChageTextArea(e, GetCotent.content[index])}
+                              // onMouseOver={() => setSelected(index)}
+                              inputProps={{
+                                style: { fontSize: e.Variant, textAlign: e.paragraph, fontWeight: e.bold ? 'bold' : 'normal', fontStyle: e.itatic ? 'italic' : 'normal' }
+                              }}
+                              InputLabelProps={{
+                                shrink: true
+                              }}
+                             />
+                            )
+                          }
+                            
+                       <Grid item container xs={12} spacing={2} sx={{pb : 2 , mt : 1}} >
                           <Grid item xs={1}>
                             <Button variant='contained' onClick={(e) => UpdateParagraph(GetCotent.content[index], 'left')} ><FormatAlignLeftIcon /></Button>
                           </Grid>
@@ -198,28 +231,49 @@ const  Index = () => {
                             <Button variant='contained' onClick={(e) => UpdateItatic(GetCotent.content[index])} ><FormatItalicIcon /></Button>
                           </Grid>
                           <Grid item xs={2}>
+                          <Button variant="contained" component="label">
+                            Upload
+                            <input hidden accept="image/*" multiple type="file" onChange={e => onSelectFile(e,GetCotent.content[index])}/>
+                          </Button>
+                          </Grid>
+                          <Grid item xs>
                             <Button variant='contained' onClick={(e) => OnDeleteContent(GetCotent.content[index], index)} >Xoá</Button>
                           </Grid>
                         </Grid>
-                      ) :
-                      (null)
-                    }
-                  </>
-
-                )
-              }) : null
+                        </Box>
+                      ) : 
+                      (
+                        <Box  onClick={() => CheckSelected(index)} >
+                           {/* <TextField
+                                fullWidth
+                                multiline
+                                onClick={() => CheckSelected(index)}
+                                onChange={(e) => OnChageTextArea(e, GetCotent.content[index])}
+                                // onMouseOver={() => setSelected(index)}
+                                inputProps={{
+                                  style: { fontSize: e.Variant, textAlign: e.paragraph, fontWeight: e.bold ? 'bold' : 'normal', fontStyle: e.itatic ? 'italic' : 'normal' }
+                                }}
+                                InputLabelProps={{
+                                  shrink: true
+                                }}
+                      /> */}
+                          <Typography  align={e.paragraph} sx={{ fontSize: e.Variant ,fontWeight: e.bold ? 'bold' : 'normal', fontStyle: e.itatic ? 'italic' : 'normal' }}>{e.subcontent === undefined ? `nội dung ${index+1}` : e.subcontent }</Typography>
+                        </Box>
+                      )
+                     }
+                </Grid>
+               )
+              })
             }
           </Grid>
           <Grid item xs={12} sx={{ textAlign: 'center' }}>
             <Button onClick={handleSubmit} variant='contained' >Gửi Form</Button>
           </Grid>
+        
         </Grid>
         <Grid container item xs={2} spacing={2}>
           <Grid item xs={12}>
             <Button onClick={AddBoxContent} variant='contained' >Thêm dòng nội dung</Button>
-          </Grid>
-          <Grid item xs={12}>
-            <ImageUpload />
           </Grid>
         </Grid>
       </Grid>
