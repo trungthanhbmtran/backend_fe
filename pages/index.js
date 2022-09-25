@@ -153,11 +153,13 @@ const onSelectFile = (e,IninitValue) => {
     // I've kept this example simple by using the first image instead of multiple
     // setSelectedFile(e.target.files[0])
     console.log('e.target.files[0]',e.target.files[0])
-    IninitValue.subcontent = e.target.files[0]
+    IninitValue.subcontent = URL.createObjectURL(e.target.files[0])
     SetGetContent({ ...GetCotent })
 }
 
   console.log('textInput', GetCotent)
+
+  // chinh lai dieu kien render
 
   return (
     <Layout>
@@ -185,9 +187,8 @@ const onSelectFile = (e,IninitValue) => {
                        selected === index ? (
                         <Box  onClick={() => CheckSelected(index)} >
                           {
-                            e.subcontent?.name ? (
-                              <h1>render hinh anh</h1>
-                              // <img src={preview} width="376" height="200" />
+                            e.subcontent ? (
+                              <img src={e.subcontent} width="376" height="200" />
                             ):(
                               <TextField
                               fullWidth
