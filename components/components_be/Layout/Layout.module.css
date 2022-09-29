@@ -14,20 +14,3 @@
     /* background-image: url('https://doji.vn/wp-content/uploads/2021/04/cong-chinh.jpg'); */
 }
 
-.ToolBar{
-     display: flex;
-     justify-content: space-between;
-}
-
-.tittle{
-    flex-grow: 10;
-}
-
-.mail{
-    flex-grow: 0;
-}
-
-.user{
-    flex-grow: 0;
-}
-
